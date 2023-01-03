@@ -13,7 +13,8 @@ const App = () => {
 
   return (
     <View style={styles.page}>
-      {isShown && <ClassComponentLifecycle />}
+      {/* {isShown && <ClassComponentLifecycle />} */}
+      {isShown && <FunctionalComponentLifecycle />}
     </View>
   )
 }
