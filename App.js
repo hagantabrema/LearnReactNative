@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { ClassComponentLifecycle, FunctionalComponentLifecycle } from './src'
+import { ClassComponentLifecycle, FunctionalComponentLifecycle, Props } from './src'
 
 const App = () => {
   const [isShown, setIsShown] = useState(true)
@@ -14,7 +14,8 @@ const App = () => {
   return (
     <View style={styles.page}>
       {/* {isShown && <ClassComponentLifecycle />} */}
-      {isShown && <FunctionalComponentLifecycle />}
+      {/* {isShown && <FunctionalComponentLifecycle />} */}
+      <Props />
     </View>
   )
 }
@@ -24,8 +25,8 @@ export default App
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: 'grey',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: 'white',
+    //justifyContent: 'center',
+    //alignItems: 'center'
   }
 })
