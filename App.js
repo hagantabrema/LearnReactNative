@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { ClassComponentLifecycle, FunctionalComponentLifecycle, Props } from './src'
+import { ClassComponentLifecycle, FunctionalComponentLifecycle, Props, State } from './src'
 
 const App = () => {
   const [isShown, setIsShown] = useState(true)
@@ -15,7 +15,8 @@ const App = () => {
     <View style={styles.page}>
       {/* {isShown && <ClassComponentLifecycle />} */}
       {/* {isShown && <FunctionalComponentLifecycle />} */}
-      <Props />
+      {/* <Props /> */}
+      <State />
     </View>
   )
 }
