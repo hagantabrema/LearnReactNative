@@ -1,8 +1,9 @@
 import { Button, Image, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Gap } from '../../assets'
+import axios from 'axios'
 
-const CallAPIVanillaJS = () => {
+const CallAPIAxios = () => {
 
     const [userData, setUserData] = useState({
         avatar: '',
@@ -17,12 +18,13 @@ const CallAPIVanillaJS = () => {
     })
     
     const getData = () => {
-        fetch('https://reqres.in/api/users/2')
-        .then(res => res.json())
-        .then(json => {
-            console.log('success', json)
-            setUserData(json.data)
+
+        axios.get('https://reqres.in/api/users/2')
+        .then(res => {
+            setUserData(res.data.data)
+            console.log(res.data.data)
         })
+        .catch(err => console.log('err:', err))
     }
 
     const postData = () => {
@@ -30,23 +32,18 @@ const CallAPIVanillaJS = () => {
             name: "morpheus",
             job: "leader"
         }
-
-        fetch('https://reqres.in/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+        
+        axios.post('https://reqres.in/api/users', data)
+        .then(res => {
+            setJobData(data)
+            console.log(res.data)
         })
-        .then(postResponse => postResponse.json())
-        .then(postJSON => {
-            setJobData(postJSON)
-            console.log(postJSON)})
+        .catch(err => console.log('err:' , err))
     }
 
   return (
     <View style={styles.page}>
-      <Text style={styles.text}>CallAPIVanillaJS</Text>
+      <Text style={styles.text}>CallAPIAxios</Text>
       <Gap height={20} />
       <View style={styles.line}/>
       <Gap height={20} />
@@ -74,7 +71,7 @@ const CallAPIVanillaJS = () => {
   )
 }
 
-export default CallAPIVanillaJS
+export default CallAPIAxios
 
 const styles = StyleSheet.create({
     page: {

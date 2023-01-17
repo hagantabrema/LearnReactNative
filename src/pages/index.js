@@ -1,3 +1,4 @@
+import CallAPIAxios from "./CallAPIAxios";
 import CallAPIVanillaJS from "./CallAPIVanillaJS";
 import ClassComponentLifecycle from "./ClassComponentLifecycle";
 import Communication from "./Communication";
@@ -11,5 +12,6 @@ export {
     Props,
     State,
     Communication,
-    CallAPIVanillaJS
+    CallAPIVanillaJS,
+    CallAPIAxios
 }
