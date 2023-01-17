@@ -1,3 +1,4 @@
+import CallAPIVanillaJS from "./CallAPIVanillaJS";
 import ClassComponentLifecycle from "./ClassComponentLifecycle";
 import Communication from "./Communication";
 import FunctionalComponentLifecycle from "./FunctionalComponentLifecycle";
@@ -9,5 +10,6 @@ export {
     FunctionalComponentLifecycle,
     Props,
     State,
-    Communication
+    Communication,
+    CallAPIVanillaJS
 }
