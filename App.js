@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { CallAPIAxios, CallAPIVanillaJS, ClassComponentLifecycle, Communication, FunctionalComponentLifecycle, Props, State } from './src'
+import { CallAPIAxios, CallAPIVanillaJS, ClassComponentLifecycle, Communication, FunctionalComponentLifecycle, LocalAPI, Props, State } from './src'
 
 const App = () => {
   // const [isShown, setIsShown] = useState(true)
@@ -19,7 +19,8 @@ const App = () => {
       {/* <State /> */}
       {/* <Communication /> */}
       {/* <CallAPIVanillaJS /> */}
-      <CallAPIAxios />
+      {/* <CallAPIAxios /> */}
+      <LocalAPI />
     </View>
   )
 }
