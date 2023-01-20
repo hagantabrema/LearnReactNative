@@ -1,40 +1,28 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "test",
-      "email": "test@testmail.com",
-      "department": "IT"
+      "name": "James",
+      "email": "james@pravatar.com",
+      "department": "IT",
+      "id": 1
     },
     {
-      "name": "Haganta",
-      "email": "haganta@mail.com",
-      "department": "UT",
+      "name": "Hello",
+      "email": "hello@pravatar.com",
+      "department": "IT",
       "id": 2
     },
     {
-      "name": "Haganta",
-      "email": "haganta@mail.com",
-      "department": "UT",
+      "name": "Test",
+      "email": "test@pravatar.com",
+      "department": "IT",
       "id": 3
     },
     {
-      "name": "Haganta",
-      "email": "haganta@mail.com",
-      "department": "UT",
+      "name": "Tania",
+      "email": "tania@pravatar.com",
+      "department": "IT",
       "id": 4
-    },
-    {
-      "name": "Haganta",
-      "email": "haganta@mail.com",
-      "department": "IT",
-      "id": 5
-    },
-    {
-      "name": "Brema",
-      "email": "Brema@mail.com",
-      "department": "IT",
-      "id": 6
     }
   ]
 }

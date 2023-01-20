@@ -1,16 +1,16 @@
-import { Button, Image, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useState } from 'react'
+import { Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { Gap } from '../../assets'
 import axios from 'axios'
 
-const ProfileItem = () => {
+const ProfileItem = ({name, email, department}) => {
     return (
         <View style={styles.profileItem}>
-            <Image source={{uri: 'https://i.pravatar.cc/150?u=haganta@pravatar.com'}} style={styles.avatar}/>
+            <Image source={{uri: `https://i.pravatar.cc/150?u=${email}`}} style={styles.avatar}/>
             <View style={styles.profileData}>
-                <Text style={styles.name}>Name</Text>
-                <Text style={styles.email}>Email</Text>
-                <Text style={styles.department}>Department</Text>
+                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.email}>{email}</Text>
+                <Text style={styles.department}>{department}</Text>
             </View>
             <Text style={styles.delete}>X</Text>
         </View>
@@ -22,6 +22,12 @@ const LocalAPI = () => {
     const [email, setEmail] = useState("")
     const [department, setDepartment] = useState("")
 
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        getData()
+    }, [])
+
     const submit = () => {
         const data = {
             name,
@@ -31,12 +37,33 @@ const LocalAPI = () => {
 
         axios.post('http://192.168.137.1:3000/users/', data)
         .then(res => {
+            console.log('res post:', res.data)
             setName("")
             setEmail("")
             setDepartment("")
-            console.log(res)
+            getData()
         })
     }
+
+    const getData = () => {
+        axios.get('http://192.168.137.1:3000/users/')
+        .then(res => {
+            console.log('res get:', res.data)
+            setUsers(res.data)
+            console.log('users:', users)
+        })
+    }
+
+    // const getData = async () => {
+    //     try {
+    //         const res = await axios.get('http://192.168.137.1:3000/users/')
+    //         console.log('res get:', res)
+    //         setUsers(res.data)
+    //         console.log('users:', users)
+    //     } catch (err) {
+    //         console.log('err:', err)
+    //     }
+    // }
 
   return (
     <View style={styles.page}>
@@ -54,7 +81,9 @@ const LocalAPI = () => {
       <Gap height={20} />
       <View style={styles.line} />
       <Gap height={20} />
-      <ProfileItem />
+      {users.map(user => {
+        <ProfileItem key={user.id} name={user.name} email={user.email} department={user.department} />
+      })}
     </View>
   )
 }
@@ -90,6 +119,7 @@ const styles = StyleSheet.create({
     
     profileItem: {
         flexDirection: 'row',
+        marginBottom: 20
     },
 
     profileData: {
