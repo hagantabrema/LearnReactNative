@@ -1,17 +1,19 @@
-import { Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Gap } from '../../assets'
 import axios from 'axios'
 
-const ProfileItem = ({name, email, department}) => {
+const ProfileItem = ({name, email, department, onPress}) => {
     return (
         <View style={styles.profileItem}>
-            <Image source={{uri: `https://i.pravatar.cc/150?u=${email}`}} style={styles.avatar}/>
-            <View style={styles.profileData}>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.email}>{email}</Text>
-                <Text style={styles.department}>{department}</Text>
-            </View>
+            <TouchableOpacity onPress={onPress}>
+                <Image source={{uri: `https://i.pravatar.cc/150?u=${email}`}} style={styles.avatar}/>
+                <View style={styles.profileData}>
+                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.email}>{email}</Text>
+                    <Text style={styles.department}>{department}</Text>
+                </View>
+            </TouchableOpacity>
             <Text style={styles.delete}>X</Text>
         </View>
     )
@@ -24,6 +26,10 @@ const LocalAPI = () => {
 
     const [users, setUsers] = useState([])
 
+    const [button, setButton] = useState("Enter")
+
+    const [selectedUser, setSelectedUser] = useState({})
+
     useEffect(() => {
         getData()
     }, [])
@@ -35,14 +41,26 @@ const LocalAPI = () => {
             department
         }
 
-        axios.post('http://192.168.137.1:3000/users/', data)
-        .then(res => {
-            console.log('res post:', res.data)
-            setName("")
-            setEmail("")
-            setDepartment("")
-            getData()
-        })
+        if(button === 'Enter') {
+            axios.post('http://192.168.137.1:3000/users/', data)
+            .then(res => {
+                console.log('res post:', res.data)
+                setName("")
+                setEmail("")
+                setDepartment("")
+                getData()
+            })
+        } else if (button === 'Update') {
+            axios.put(`http://192.168.137.1:3000/users/${selectedUser.id}`, data)
+            .then(res => {
+                console.log('updated user: ', res.data)
+                setName("")
+                setEmail("")
+                setDepartment("")
+                getData()
+                setButton("Enter")
+            })
+        }
     }
 
     const getData = () => {
@@ -65,6 +83,15 @@ const LocalAPI = () => {
     //     }
     // }
 
+    const selectItem = (item) => {
+        console.log('selected item:', item)
+        setSelectedUser(item)
+        setName(item.name)
+        setEmail(item.email)
+        setDepartment(item.department)
+        setButton("Update")
+    }
+
   return (
     <View style={styles.page}>
       <Text style={styles.text}>LocalAPI using JSON Server</Text>
@@ -77,12 +104,12 @@ const LocalAPI = () => {
       <Gap height={10} />
       <TextInput placeholder='Department' style={styles.input} value={department} onChangeText={(value) => setDepartment(value)}></TextInput>
       <Gap height={35} />
-      <Button title='ENTER' onPress={submit}/>
+      <Button title={button} onPress={submit}/>
       <Gap height={20} />
       <View style={styles.line} />
       <Gap height={20} />
       {users.map(user => {
-        <ProfileItem key={user.id} name={user.name} email={user.email} department={user.department} />
+        <ProfileItem key={user.id} name={user.name} email={user.email} department={user.department} onPress={() => selectItem(user)}/>
       })}
     </View>
   )

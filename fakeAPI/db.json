@@ -23,6 +23,12 @@
       "email": "tania@pravatar.com",
       "department": "IT",
       "id": 4
+    },
+    {
+      "name": "TestUser2",
+      "email": "testuser2@pravatar.com",
+      "department": "IT",
+      "id": 5
     }
   ]
 }
