@@ -1,9 +1,9 @@
-import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Gap } from '../../assets'
 import axios from 'axios'
 
-const ProfileItem = ({name, email, department, onPress}) => {
+const ProfileItem = ({name, email, department, onPress, onDeleteItem}) => {
     return (
         <View style={styles.profileItem}>
             <TouchableOpacity onPress={onPress}>
@@ -14,7 +14,9 @@ const ProfileItem = ({name, email, department, onPress}) => {
                     <Text style={styles.department}>{department}</Text>
                 </View>
             </TouchableOpacity>
-            <Text style={styles.delete}>X</Text>
+            <TouchableOpacity onPress={onDeleteItem}>
+                <Text style={styles.delete}>X</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -92,6 +94,15 @@ const LocalAPI = () => {
         setButton("Update")
     }
 
+    const deleteItem = (item) => {
+        console.log(item)
+        axios.delete(`http://192.168.137.1:3000/users/${item.id}`)
+        .then(res => {
+            console.log('deleted item:', res.data)
+            getData()
+        })
+    }
+
   return (
     <View style={styles.page}>
       <Text style={styles.text}>LocalAPI using JSON Server</Text>
@@ -109,7 +120,24 @@ const LocalAPI = () => {
       <View style={styles.line} />
       <Gap height={20} />
       {users.map(user => {
-        <ProfileItem key={user.id} name={user.name} email={user.email} department={user.department} onPress={() => selectItem(user)}/>
+        <ProfileItem
+            key={user.id}
+            name={user.name}
+            email={user.email}
+            department={user.department}
+            onPress={() => selectItem(user)}
+            onDeleteItem={() => Alert.alert('Warning', 'Are you sure you want to delete this item?',
+                [
+                    {
+                        text: 'No',
+                        onPress: () => console.log('Nope')
+                    },
+                    {
+                        text: 'Yes',
+                        onPress: () => deleteItem(user)
+                    }
+                ]
+            )}/>
       })}
     </View>
   )
