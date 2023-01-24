@@ -4,6 +4,7 @@ import ClassComponentLifecycle from "./ClassComponentLifecycle";
 import Communication from "./Communication";
 import FunctionalComponentLifecycle from "./FunctionalComponentLifecycle";
 import LocalAPI from "./LocalAPI";
+import Notification from "./Notification";
 import Props from "./Props";
 import State from "./State";
 
@@ -15,5 +16,6 @@ export {
     Communication,
     CallAPIVanillaJS,
     CallAPIAxios,
-    LocalAPI
+    LocalAPI,
+    Notification
 }
